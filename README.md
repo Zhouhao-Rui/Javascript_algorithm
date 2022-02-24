@@ -105,4 +105,37 @@ var mySqrt = function (x) {
 };
 ```
 
+74. 搜索二维矩阵
+
+编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：
+
+每行中的整数从左到右按升序排列。
+每行的第一个整数大于前一行的最后一个整数。
+
+思路：首先定位到正确的行数，然后二分
+
+```javascript
+var searchMatrix = function(matrix, target) {
+    // find the row
+    for (row in matrix) {
+        if (matrix[row][0] <= target && matrix[row][matrix[row].length - 1] >= target) {
+            // 二分查找
+            let low = 0
+            let high = matrix[row].length - 1          
+            while (low <= high) {
+                let middle = Math.floor((low + high) / 2)
+                if (matrix[row][middle] < target) {
+                    low = middle + 1
+                } else if (matrix[row][middle] > target) {
+                    high = middle - 1
+                } else {
+                    return true
+                }
+            }
+            return false
+        }
+    }
+    return false
+};
+```
 
